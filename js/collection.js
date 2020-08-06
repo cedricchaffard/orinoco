@@ -70,9 +70,14 @@ teddies.then(function (response) {
                     quantity,
                     color: select.value
                 }
+                
+                console.log(cart);
 
                 localStorage.setItem('cart', JSON.stringify(cart));
+
             })
+
+            
         });
 
 

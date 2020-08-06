@@ -4,63 +4,70 @@ const cartContainer = document.querySelector('#cart-container')
 const cart = JSON.parse(localStorage.getItem('cart')) || []
 const keys = Object.keys(cart);
 
+console.log(cart)
+
 let quantity = 1;
+
+// const span = document.createElement('span');
+//     span.innerHTML = quantity;
 
 function addOne(key) {
     cart[key]['quantity'] = cart[key]['quantity'] + 1
     localStorage.setItem('cart', JSON.stringify(cart));
-    document.querySelector(`[data-key="${key}"] .orderQuantity`).innerHTML = cart[key]['quantity'];
+    document.querySelector(`[data-key="${key}"].orderQuantity`).innerHTML = cart[key]['quantity'];
 }
 
 function substractOne(key) {
     cart[key]['quantity'] = cart[key]['quantity'] - 1
     localStorage.setItem('cart', JSON.stringify(cart));
-    document.querySelector(`[data-key="${key}"] .orderQuantity`).innerHTML = cart[key]['quantity'];
+    document.querySelector(`[data-key="${key}"].orderQuantity`).innerHTML = cart[key]['quantity'];
 }
 
 function addLine(key, name, choosenColor, quantity, formatPrice) {
 
-    const TR = document.createElement("tr");
-    TR.setAttribute('data-key', key)
+    let totalPerTeddies = quantity * parseFloat(formatPrice);
+    let totalPricePerTeddy = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(totalPerTeddies)
 
-    const TD1 = document.createElement("td");
-    const TXT1 = document.createTextNode(name);
-    TD1.appendChild(TXT1);
-    TR.appendChild(TD1);
+    // const TD3 = document.createElement('td');
+    // const span = document.createElement('span');
+    // span.setAttribute('class', 'orderQuantity')
+    // span.innerHTML = quantity
+    
+    cartContainer.innerHTML +=
+    
+    `<td>${name}</td>
+    <td>${choosenColor}</td>
+    <td>
+    <span class="orderQuantity">
+    <button class="orderQuantityMinus">-</button>
+    ${quantity}
+    <button class="orderQuantityPlus">+</button>
+    </span>
+    <td>${formatPrice}</td>
+    <td id="total-price">${totalPricePerTeddy}</td>`
 
+    document.querySelector('.orderQuantityPlus').addEventListener('click', () => addOne(key));
+    document.querySelector('.orderQuantityMinus').addEventListener('click', () => substractOne(key));
 
-    const TD2 = document.createElement("td");
-    const TXT2 = document.createTextNode(choosenColor);
-    TD2.appendChild(TXT2);
-    TR.appendChild(TD2);
+    // if (quantity === 0) {
+    //     var element = document.querySelector('td');
+    
+    //     var parent = element.parentNode;
+    //     parent.removeChild(element);
+    
+    //     console.log(quantity)
+    // }
+    
+    const totalOfOrder = document.querySelector('#total-order');
 
-    const TD3 = document.createElement('td');
-    const span = document.createElement('span');
-    span.setAttribute('class', 'orderQuantity')
-    span.innerHTML = quantity
-    const BTN3 = document.createElement('button');
-    BTN3.innerHTML = '+';
+    totalOfOrder.innerHTML +=
 
-    const BTN32 = document.createElement('button');
-    BTN32.innerHTML = '-';
-     BTN32.setAttribute('class', 'orderQuantityMinus');
+    `<td>${totalPricePerTeddy}</td>`
 
-    TD3.appendChild(BTN3);
-    TD3.appendChild(span);
-    TD3.appendChild(BTN32);
-    TR.appendChild(TD3);
-
-
-    const TD4 = document.createElement('td');
-    const TXT4 = document.createTextNode(formatPrice);
-    TD4.appendChild(TXT4);
-    TR.appendChild(TD4);
-
-    document.getElementById('order').appendChild(TR);
-
-    BTN3.addEventListener('click', () => addOne(key));
-    BTN32.addEventListener('click', () => substractOne(key));
+    console.log(totalPricePerTeddy)
 }
+
+
 
 // Prévoir le cas ou le panier est vide (afficher un message)
 if (keys.length === 0) {
@@ -77,3 +84,5 @@ else {
         addLine(key, product.name, product.color, product.quantity, formatPrice);
     }
 }
+
+

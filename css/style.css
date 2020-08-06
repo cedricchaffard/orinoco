@@ -687,18 +687,46 @@ label{
                 inset 2px 2px 3px rgba(0, 0, 0, .6);
 }
 
+#checkout{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* border: 2px red solid; */
+    justify-content: center;
+
+}
+
+#cart-layout th{
+    border: 1px black solid;
+    width: 10vh;
+    text-align: center;
+}
+
+#total-order{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#total-order td{
+    border: 1px black solid;
+    width: 10vh;
+    text-align: center;
+    color: black;
+}
+
 #cart-container{
-    height: 10vh;
+    height: auto;
     color: black;
     margin: 2vh 2vh;
     display: flex;
-    flex-direction: column-reverse;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    width: 100% ;
 }
 
-#order td, #order{
+#cart-container td{
     border: 1px black solid;
+    width: 10vh;
+    text-align: center;
 }
 
 .orderQuantityPlus{
