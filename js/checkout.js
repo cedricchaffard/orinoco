@@ -12,15 +12,17 @@ let quantity = 1;
 //     span.innerHTML = quantity;
 
 function addOne(key) {
+    console.log(key)
     cart[key]['quantity'] = cart[key]['quantity'] + 1
     localStorage.setItem('cart', JSON.stringify(cart));
-    document.querySelector(`[data-key="${key}"].orderQuantity`).innerHTML = cart[key]['quantity'];
+    document.querySelector(`[data-key="${key}"] .orderQuantity`).innerHTML = cart[key]['quantity'];
 }
 
 function substractOne(key) {
+    console.log(key)
     cart[key]['quantity'] = cart[key]['quantity'] - 1
     localStorage.setItem('cart', JSON.stringify(cart));
-    document.querySelector(`[data-key="${key}"].orderQuantity`).innerHTML = cart[key]['quantity'];
+    document.querySelector(`[data-key="${key}"] .orderQuantity`).innerHTML = cart[key]['quantity'];
 }
 
 function addLine(key, name, choosenColor, quantity, formatPrice) {
@@ -28,26 +30,24 @@ function addLine(key, name, choosenColor, quantity, formatPrice) {
     let totalPerTeddies = quantity * parseFloat(formatPrice);
     let totalPricePerTeddy = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(totalPerTeddies)
 
+    const line = document.createElement('tr')
+    line.setAttribute('data-key', key)
+
     // const TD3 = document.createElement('td');
     // const span = document.createElement('span');
     // span.setAttribute('class', 'orderQuantity')
     // span.innerHTML = quantity
     
-    cartContainer.innerHTML +=
-    
-    `<td>${name}</td>
-    <td>${choosenColor}</td>
-    <td>
-    <span class="orderQuantity">
-    <button class="orderQuantityMinus">-</button>
-    ${quantity}
-    <button class="orderQuantityPlus">+</button>
-    </span>
-    <td>${formatPrice}</td>
-    <td id="total-price">${totalPricePerTeddy}</td>`
-
-    document.querySelector('.orderQuantityPlus').addEventListener('click', () => addOne(key));
-    document.querySelector('.orderQuantityMinus').addEventListener('click', () => substractOne(key));
+    line.innerHTML += `<td>${name}</td>
+        <td>${choosenColor}</td>
+        <td>
+        <span class="orderQuantity">
+        <button class="orderQuantityMinus">-</button>
+        ${quantity}
+        <button class="orderQuantityPlus">+</button>
+        </span>
+        <td>${formatPrice}</td>
+        <td id="total-price">${totalPricePerTeddy}</td>`
 
     // if (quantity === 0) {
     //     var element = document.querySelector('td');
@@ -58,13 +58,13 @@ function addLine(key, name, choosenColor, quantity, formatPrice) {
     //     console.log(quantity)
     // }
     
-    const totalOfOrder = document.querySelector('#total-order');
+    /*const totalOfOrder = document.querySelector('#total-order');
 
     totalOfOrder.innerHTML +=
 
-    `<td>${totalPricePerTeddy}</td>`
+    `<td>${totalPricePerTeddy}</td>`*/
 
-    console.log(totalPricePerTeddy)
+    return line
 }
 
 
@@ -74,6 +74,7 @@ if (keys.length === 0) {
     cartContainer.innerHTML = '<h3>Le panier est vide</h3>'
 }
 else {
+    let cartBody = ''
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i]
         const product = cart[key]
@@ -81,7 +82,18 @@ else {
         let goodPrice = Math.round(product.price) / 100;
         let formatPrice = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(goodPrice)
 
-        addLine(key, product.name, product.color, product.quantity, formatPrice);
+        const line = addLine(key, product.name, product.color, product.quantity, formatPrice);
+        cartBody += line.outerHTML
+
+    }
+
+    cartContainer.innerHTML = '<table>' +
+        '<tbody>' + cartBody + '</tbody>' +
+        '</table>'
+
+    for (let i = 0; i < keys.length; i++) {
+        document.querySelector(`[data-key="${keys[i]}"] .orderQuantityPlus`).addEventListener('click', () => addOne(keys[i]));
+        document.querySelector(`[data-key="${keys[i]}"] .orderQuantityMinus`).addEventListener('click', () => substractOne(keys[i]));
     }
 }
 
