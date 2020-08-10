@@ -707,12 +707,12 @@ label{
     justify-content: flex-end;
 }
 
-#total-order td{
+/*#total-order td{
     border: 1px black solid;
     width: 10vh;
     text-align: center;
     color: black;
-}
+}*/
 
 #cart-container{
     height: auto;
@@ -721,12 +721,21 @@ label{
     display: flex;
     flex-direction: column;
     width: 100% ;
+    border-collapse: collapse;
 }
 
-#cart-container td{
+#cart-container th {
+    border-bottom: none !important;
+}
+
+#cart-container td, #cart-container th{
     border: 1px black solid;
-    width: 10vh;
+    width: 100px;
     text-align: center;
+}
+
+#cart-container button {
+    outline: none;
 }
 
 .orderQuantityPlus{

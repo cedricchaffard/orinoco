@@ -4,105 +4,87 @@ const cartContainer = document.querySelector('#cart-container')
 const cart = JSON.parse(localStorage.getItem('cart')) || []
 const keys = Object.keys(cart);
 
-console.log(cart)
-
 let quantity = 1;
 
-// const span = document.createElement('span');
-//     span.innerHTML = quantity;
+function getTotalPricePerTeddy(quantity, price){
+    const goodPrice = Math.round(price) / 100;
+    const totalPerTeddies = quantity * goodPrice;
+    return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(totalPerTeddies)
+}
+
+function computeTotals(key){
+    const product = cart[key]
+    const totalPricePerTeddy = getTotalPricePerTeddy(product.quantity, product.price)
+    document.querySelector(`[data-key="${key}"] td:last-child`).innerHTML = totalPricePerTeddy;
+    document.querySelector(`#total`).innerHTML = getTotalCart();
+}
+
+function getTotalCart(){
+    let total = 0;
+    for (let i = 0; i < keys.length; i++) {
+        const key = keys[i]
+        total += cart[key].quantity * (cart[key].price / 100)
+    }
+    return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(total)
+}
 
 function addOne(key) {
     cart[key]['quantity'] = cart[key]['quantity'] + 1
     localStorage.setItem('cart', JSON.stringify(cart));
-    document.querySelector(`[data-key="${key}"].orderQuantity`).innerHTML = cart[key]['quantity'];
+    document.querySelector(`[data-key="${key}"] .orderQuantity`).innerHTML = cart[key]['quantity'];
+    computeTotals(key)
 }
 
 function substractOne(key) {
     cart[key]['quantity'] = cart[key]['quantity'] - 1
     localStorage.setItem('cart', JSON.stringify(cart));
-    document.querySelector(`[data-key="${key}"].orderQuantity`).innerHTML = cart[key]['quantity'];
+    document.querySelector(`[data-key="${key}"] .orderQuantity`).innerHTML = cart[key]['quantity'];
+    computeTotals(key)
 }
 
-function addLine(key, name, choosenColor, quantity, formatPrice) {
+function addLine(key, name, choosenColor, quantity, price) {
 
-    let totalPerTeddies = quantity * parseFloat(formatPrice);
-    let totalPricePerTeddy = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(totalPerTeddies)
+    const goodPrice = Math.round(price) / 100
+    const formatPrice = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(goodPrice)
+    const totalPricePerTeddy = getTotalPricePerTeddy(quantity, price)
 
-    // const TD3 = document.createElement('td');
-    // const span = document.createElement('span');
-    // span.setAttribute('class', 'orderQuantity')
-    // span.innerHTML = quantity
-
-    cartContainer.innerHTML +=
-
-        `<td>${name}</td>
-    <td>${choosenColor}</td>
-    <td>
-    <span class="orderQuantity">
-    <button class="orderQuantityMinus">-</button>
-    ${quantity}
-    <button class="orderQuantityPlus">+</button>
-    </span>
-    <td>${formatPrice}</td>
-    <td id="total-price" class="sum-per-teddy">${totalPricePerTeddy}</td>`
-
-    document.querySelector('.orderQuantityPlus').addEventListener('click', () => addOne(key));
-    document.querySelector('.orderQuantityMinus').addEventListener('click', () => substractOne(key));
-
-    let list = document.getElementsByClassName("sum-per-teddy");
-    for (var i = 0; i < list.length; i++) {
-        list[i].setAttribute("id", "total-price" + i);
-
-    }
-    
+    return `<tr data-key="${key}">
+        <td>${name}</td>
+        <td>${choosenColor}</td>
+        <td>
+        <button class="orderQuantityMinus">-</button>
+        <span class="orderQuantity">${quantity}</span>
+        <button class="orderQuantityPlus">+</button>
+        <td>${formatPrice}</td>
+        <td id="total-price" class="sum-per-teddy">${totalPricePerTeddy}</td>
+    </tr>`
 }
-
-for (let i in cart) {
-
-    let totalPerTeddies = cart[i].quantity * parseFloat(cart[i].price) / 100;
-    let totalPricePerTeddy = parseInt(new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(totalPerTeddies));
-
-    console.log(totalPricePerTeddy)
-
-}
-
-let totalOfOrder = document.querySelector('#total-order');
-
-let amountOne = document.getElementsByTagName("td");
-
-// // let amount2 = document.querySelector('#total-price1');
-
-// // totalOfOrder = amount1 + amount2
-
-console.log(amountOne)
-
-for (var i = 0; i < amountOne.length; i++) {
-
-    console.log(amountOne);
-
-    console.log(amountOne)
-}
-
-//     totalOfOrder = document.querySelector('#total-price') * totalPricePerTeddy
-
-// console.log(amountOne)
-
-// totalOfOrder.innerHTML = amountOne
-
 
 // Prévoir le cas ou le panier est vide (afficher un message)
 if (keys.length === 0) {
     cartContainer.innerHTML = '<h3>Le panier est vide</h3>'
 }
 else {
+    const tbody = cartContainer.querySelector('tbody')
+
+    // Création du DOM
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i]
         const product = cart[key]
 
-        let goodPrice = Math.round(product.price) / 100;
-        let formatPrice = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(goodPrice)
+        const tr = addLine(key, product.name, product.color, product.quantity, product.price);
+        tbody.innerHTML += tr
+    }
 
-        addLine(key, product.name, product.color, product.quantity, formatPrice);
+    tbody.innerHTML += `<tr>
+        <td colspan="4">Total</td>
+        <td id="total">${getTotalCart()}</td>
+    </tr>`
+
+    // Ajout des évènements permettant d'ajuster les quantités
+    for (let i = 0; i < keys.length; i++){
+        document.querySelector(`[data-key="${keys[i]}"] .orderQuantityPlus`).addEventListener('click', () => addOne(keys[i]));
+        document.querySelector(`[data-key="${keys[i]}"] .orderQuantityMinus`).addEventListener('click', () => substractOne(keys[i]));
     }
 }
 
