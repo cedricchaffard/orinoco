@@ -54,17 +54,14 @@ function asideswipe()   {
     }
 } 
 
-const menuColor = document.querySelector('#account');
 const cartColor = document.querySelector('#cart');
-const userColor = document.querySelector('#user');
+const myCartColor = document.querySelector('#my-cart');
 window.addEventListener('scroll', () => {
     if(window.pageYOffset > 400) {
-        menuColor.style.color = 'black';
         cartColor.style.color = 'black';
-        userColor.style.color = 'black';
+        myCartColor.style.color = 'black';
     }else{
-        menuColor.style.color = 'white';
         cartColor.style.color = 'white';
-        userColor.style.color = 'white';
+        myCartColor.style.color = 'white';
     }
 });

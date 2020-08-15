@@ -1,54 +1,59 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta char  et="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <title>Les oursons mignons</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
-        <link rel="shortcut icon" type="image/jpg" href="favicon.jpg">
-    </head>
-    <body> 
-        <!--onmousemove="souris(event);"-->
-        <header href="#top">
-            <div class="center">
-                <div class="cloud2"></div>
-            </div>
-            <div class="center2">
-                <div class="cloud2"></div>
-            </div>
-            <img src="./img/teddy-bear.svg" alt="">
-            <h1>OrinoToy</h1>
-            <h2>Oursons de collection</h2>
-            <nav>
-                <div class="cercle">
-                    <div class="burger">
-                        <span></span>
-                    </div>
+
+<head>
+    <meta char et="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <title>Les oursons mignons</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css"
+        integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/jpg" href="favicon.jpg">
+</head>
+
+<body>
+    <!--onmousemove="souris(event);"-->
+    <header href="#top">
+        <div class="center">
+            <div class="cloud2"></div>
+        </div>
+        <div class="center2">
+            <div class="cloud2"></div>
+        </div>
+        <img src="./img/teddy-bear.svg" alt="">
+        <h1>OrinoToy</h1>
+        <h2>Oursons de collection</h2>
+        <nav>
+            <div class="cercle">
+                <div class="burger">
+                    <span></span>
                 </div>
-                <ul class=menug>
-                    <li>
-                        <a href="index.html">Accueil</a>
-                    </li>
-                    <li id="collection" onClick="asideswipe()">
-                        <a href="#">Collection
-                            <ul id="collection-name"></ul>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="checkout.html"><i id="cart" class="fas fa-shopping-cart"></i> Mon panier</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <main id="checkout">
-            <div id="cart-layout">
+            </div>
+            <ul class=menug>
+                <li>
+                    <a href="index.html">Accueil</a>
+                </li>
+                <li id="collection" onClick="asideswipe()">
+                    <a href="#">Collection
+                        <ul id="collection-name"></ul>
+                    </a>
+                </li>
+                <li>
+                    <a id="my-cart" href="checkout.html"><i id="cart" class="fas fa-shopping-cart"></i> Mon panier</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main id="checkout">
+        <div id="cart-layout">
             <table id="cart-container">
                 <thead>
+                    <th scope="Product">Produit</th>
                     <th scope="Name">Nom</th>
                     <th scope="Color">Couleur</th>
                     <th scope="Quantity">Quantité</th>
+                    <th scope="Delete">Supprimer</th>
                     <th scope="Price">Prix</th>
                     <th scope="total">Total</th>
                 </thead>
@@ -57,52 +62,70 @@
             <p id="total-order">
             </p>
         </div>
-            <!-- <form id="form">
-                <div>
-                    <label>Nom:</label>
-                    <input type="text" name="last_name" placeholder="Nom" required />
+        <div id=form-layout>
+            <form id="form" action="" method="post">
+                <div class="form-group">
+                    <label for="last_name">Nom*</label>
+                    <input id="last_name" type="text" name="last_name" placeholder="Nom" pattern="^\D*$" required />
                 </div>
-
-                <div>
-                    <label>Prénom:</label>
-                    <input type="text" name="first_name" placeholder="Prénom" required />
+                <div class="form-group">
+                    <label for="first_name">Prénom*</label>
+                    <input id="first_name" type="text" name="first_name" placeholder="Prénom" pattern="^\D*$"
+                        required />
                 </div>
-
-                <div>
-                    <label>Email:</label>
-                    <input type="email" name="email" placeholder="Nom" required />
+                <div class="form-group">
+                    <label for="adress">Adresse*</label>
+                    <textarea id="adress" type="text" name="adress" placeholder="Adresse" cols="20" rows="3"
+                        required></textarea>
                 </div>
-
+                <div class="form-group">
+                    <label for="postalcode">Code Postal*</label>
+                    <input id="postalcode" type="text" name="postalcode" placeholder="Code Postal" required />
+                </div>
+                <div class="form-group">
+                    <label for="city">Ville*</label>
+                    <input id="city" type="text" name="city" placeholder="Ville" required />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email*</label>
+                    <input id="email" type="email" name="email" placeholder="Email" pattern="^\D*$" required />
+                </div>
+                <div class="form-group">
+                    <label for="message">Commentaires</label>
+                    <textarea id="message" type="text" name="message" cols="20" rows="10"></textarea>
+                </div>
                 <button type="submit">Valider ma commande</button>
-            </form> -->
-        </main>
-        <div>
-            <a id="scrolltotop" class="scrolltotopInvisible" href="#top"></a>
+                <button type="reset">Effacer</button>
+            </form>
         </div>
-        <footer>
-            <ul id="terms-of-use">
-                <li>
-                    <a href="#">Conditions d'utilisation</a>
-                </li>
-                <li>
-                    <a href="#">Confidentialité</a>
-                </li>
-                <li>
-                    <a href="#">Cookies</a>
-                </li>
-                <li>
-                    <a href="#">Plan du site</a>
-                </li>
-            </ul>
-            <div id="info">
-                <input type="text" id="coordonnes" value="inconnues" readonly="readonly"/>
-            </div>
-        </footer>
-        <script src="js/ajax.js"></script>
-        <!-- <script src="js/index.js"></script> -->
-        <script src="js/script.js"></script>
-        <script src="js/checkout.js"></script>
-        <script src="js/souris.js"></script>
-    </body>
-</html>
+    </main>
+    <div>
+        <a id="scrolltotop" class="scrolltotopInvisible" href="#top"></a>
+    </div>
+    <footer>
+        <ul id="terms-of-use">
+            <li>
+                <a href="#">Conditions d'utilisation</a>
+            </li>
+            <li>
+                <a href="#">Confidentialité</a>
+            </li>
+            <li>
+                <a href="#">Cookies</a>
+            </li>
+            <li>
+                <a href="#">Plan du site</a>
+            </li>
+        </ul>
+        <div id="info">
+            <input type="text" id="coordonnes" value="inconnues" readonly="readonly" />
+        </div>
+    </footer>
+    <script src="js/ajax.js"></script>
+    <!-- <script src="js/index.js"></script> -->
+    <script src="js/script.js"></script>
+    <script src="js/checkout.js"></script>
+    <script src="js/souris.js"></script>
+</body>
 
+</html>
