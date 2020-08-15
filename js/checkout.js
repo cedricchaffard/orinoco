@@ -2,17 +2,32 @@ const cartContainer = document.querySelector('#cart-container')
 
 // Récupérer le contenu du localStorage (key: cart)
 const cart = JSON.parse(localStorage.getItem('cart')) || []
-const keys = Object.keys(cart);
-
-console.log(cart)
-console.log(keys)
+let keys = Object.keys(cart);
 
 let quantity = 1;
+
+//Fonction de supression d'un produit
+function removeItem(key) {
+    if (confirm('Etes-vous sûr de vouloir supprimer le produit?')) {
+        // On supprime du localStorage la clé du produit
+        delete cart[key]
+        localStorage.setItem('cart', JSON.stringify(cart));
+        keys = Object.keys(cart)
+        if (keys.length === 0) {
+            cartContainer.innerHTML = '<h3>Le panier est vide</h3>'
+        } else {
+            // On supprime visuellement la ligne du tableau
+            const line = document.querySelector(`[data-key="${key}"]`)
+            line.remove()
+            document.querySelector(`#total`).innerHTML = getTotalCart();
+        }
+    }
+}
 
 function getTotalPricePerTeddy(quantity, price) {
     const goodPrice = Math.round(price) / 100;
     const totalPerTeddies = quantity * goodPrice;
-    return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(totalPerTeddies)
+    return new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format(totalPerTeddies)
 }
 
 function computeTotals(key) {
@@ -28,7 +43,7 @@ function getTotalCart() {
         const key = keys[i]
         total += cart[key].quantity * (cart[key].price / 100)
     }
-    return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(total)
+    return new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format(total)
 }
 
 function addOne(key) {
@@ -39,16 +54,21 @@ function addOne(key) {
 }
 
 function substractOne(key) {
-    cart[key]['quantity'] = cart[key]['quantity'] - 1
-    localStorage.setItem('cart', JSON.stringify(cart));
-    document.querySelector(`[data-key="${key}"] .orderQuantity`).innerHTML = cart[key]['quantity'];
-    computeTotals(key)
+    let newQuantity = cart[key]['quantity'] - 1
+    if (newQuantity === 0) {
+        removeItem(key)
+    } else {
+        cart[key]['quantity'] = cart[key]['quantity'] - 1
+        localStorage.setItem('cart', JSON.stringify(cart));
+        document.querySelector(`[data-key="${key}"] .orderQuantity`).innerHTML = cart[key]['quantity'];
+        computeTotals(key)
+    }
 }
 
 function addLine(key, name, choosenColor, quantity, price, imageUrl) {
 
     const goodPrice = Math.round(price) / 100
-    const formatPrice = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(goodPrice)
+    const formatPrice = new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format(goodPrice)
     const totalPricePerTeddy = getTotalPricePerTeddy(quantity, price)
 
     return `<tr data-key="${key}">
@@ -72,8 +92,7 @@ function addLine(key, name, choosenColor, quantity, price, imageUrl) {
 // Prévoir le cas ou le panier est vide (afficher un message)
 if (keys.length === 0) {
     cartContainer.innerHTML = '<h3>Le panier est vide</h3>'
-}
-else {
+} else {
     const tbody = cartContainer.querySelector('tbody')
 
     // Création du DOM
@@ -95,50 +114,9 @@ else {
     for (let i = 0; i < keys.length; i++) {
         document.querySelector(`[data-key="${keys[i]}"] .orderQuantityPlus`).addEventListener('click', () => addOne(keys[i]));
         document.querySelector(`[data-key="${keys[i]}"] .orderQuantityMinus`).addEventListener('click', () => substractOne(keys[i]));
-    }
-
-    cartContainer.onclick = function (e) {
-
-        console.log(e.target)
-        for (let i = 0; i < cart.length; i++) {
-            if (confirm('Etes-vous sûr de vouloir supprimer ce produit?')) {
-                if (e.target && e.target.classList.contains('remove')) {
-
-                    // let cle = e.target.dataset.key
-
-                    removeItem()
-
-                }
-
-            }
-
-        }
-
-    }
-
-    //Fonction de supression d'un produit 
-    function removeItem() {
-        let cle = (`data-key="${key}`);
-        for (let i = 0; i < keys.length; i += 1) {
-
-            if (keys[i] === cle) {
-                localStorage.removeItem()
-
-                // if (quantity > 0) {
-                //     keys[i].quantity -= quantity
-                // }
-                // if (keys[i].quantity < 1 || quantity === 0) {
-                // keys.splice(i, 1)
-                return
-            }
-
-        }
-
+        document.querySelector(`[data-key="${keys[i]}"] .remove`).addEventListener('click', () => removeItem(keys[i]));
     }
 }
-
-
-
 
 
 //Récupération des éléments du formulaire
@@ -152,6 +130,19 @@ form.addEventListener('submit', (e) => {
     console.log('City', e.target.city.value)
     console.log('Email', e.target.email.value)
     console.log('Message', e.target.message.value)
+    const total = getTotalCart()
+    const order = {
+        products: [],
+        contact: {
+            lastName: e.target.last_name.value,
+            firstName: e.target.first_name.value
+        }
+    }
+    postOrder(order)
+        .then((resp) => {
+            // Redirection vers la page de recap avec en paramètre le numéro de commande, le total, nom et prénom du contact
+            console.log('Victoire')
+        })
 });
 
 // Vérification de la validité des informations 
@@ -174,4 +165,3 @@ const checkValidity = (input) => {
 
 Array.from(inputs).forEach(checkValidity);
 Array.from(textareas).forEach(checkValidity);
-
