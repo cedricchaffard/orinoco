@@ -1,7 +1,5 @@
 var teddies = getTeddies();
 teddies.then(function (response) {
-    console.log(response)
-
     const collectionName = document.querySelector('#collection-name')
     for (let product of response) {
         collectionName.innerHTML +=
@@ -76,8 +74,6 @@ teddies.then(function (response) {
                 localStorage.setItem('cart', JSON.stringify(cart));
 
             })
-
-            
         });
 
 
