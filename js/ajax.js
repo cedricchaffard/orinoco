@@ -30,7 +30,7 @@ function getTeddy(id) {
 
 }
 
-function postOrder(order) {
+function postOrder(orderTeddies) {
     return new Promise(function (resolve) {
         var teddies = new XMLHttpRequest();
         teddies.onreadystatechange = function () {
@@ -40,7 +40,7 @@ function postOrder(order) {
             }
         }
         teddies.open("POST", "https://oc-p5-api.herokuapp.com/api/teddies/order");
-        teddies.send(JSON.stringify(order));
+        teddies.send(JSON.stringify(orderTeddies));
 
     })
 }

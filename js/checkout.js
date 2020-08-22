@@ -6,6 +6,15 @@ let keys = Object.keys(cart);
 
 let quantity = 1;
 
+for (let i = 0; i < keys.length; i++) {
+    const key = keys[i]
+    const product = cart[key]
+    const productsOrder = product._id
+    // products.push(productsOrder)
+    console.log(productsOrder)
+}
+
+
 //Fonction de supression d'un produit
 function removeItem(key) {
     if (confirm('Etes-vous sûr de vouloir supprimer le produit?')) {
@@ -27,7 +36,7 @@ function removeItem(key) {
 function getTotalPricePerTeddy(quantity, price) {
     const goodPrice = Math.round(price) / 100;
     const totalPerTeddies = quantity * goodPrice;
-    return new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format(totalPerTeddies)
+    return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(totalPerTeddies)
 }
 
 function computeTotals(key) {
@@ -43,7 +52,7 @@ function getTotalCart() {
         const key = keys[i]
         total += cart[key].quantity * (cart[key].price / 100)
     }
-    return new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format(total)
+    return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(total)
 }
 
 function addOne(key) {
@@ -68,7 +77,7 @@ function substractOne(key) {
 function addLine(key, name, choosenColor, quantity, price, imageUrl) {
 
     const goodPrice = Math.round(price) / 100
-    const formatPrice = new Intl.NumberFormat('fr-FR', {style: 'currency', currency: 'EUR'}).format(goodPrice)
+    const formatPrice = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(goodPrice)
     const totalPricePerTeddy = getTotalPricePerTeddy(quantity, price)
 
     return `<tr data-key="${key}">
@@ -123,22 +132,38 @@ if (keys.length === 0) {
 const form = document.querySelector('form');
 form.addEventListener('submit', (e) => {
     e.preventDefault()
-    console.log('Nom', e.target.last_name.value)
-    console.log('Prénom', e.target.first_name.value)
-    console.log('Adress', e.target.adress.value)
+    console.log('firstName', e.target.firstName.value)
+    console.log('lastName', e.target.lastName.value)
+    console.log('address', e.target.address.value)
     console.log('postalcode', e.target.postalcode.value)
-    console.log('City', e.target.city.value)
-    console.log('Email', e.target.email.value)
-    console.log('Message', e.target.message.value)
+    console.log('city', e.target.city.value)
+    console.log('email', e.target.email.value)
+    console.log('message', e.target.message.value)
     const total = getTotalCart()
-    const order = {
-        products: [],
+    const orderTeddies = {
+        products : [],
         contact: {
-            lastName: e.target.last_name.value,
-            firstName: e.target.first_name.value
+            firstName: e.target.firstName.value,
+            lastName: e.target.lastName.value,
+            address: e.target.address.value,
+            city: e.target.city.value,
+            email: e.target.email.value,
         }
     }
-    postOrder(order)
+    console.log(typeof orderTeddies.contact.firstName)
+    console.log(typeof orderTeddies.contact.lastName)
+    console.log(typeof orderTeddies.contact.address)
+    console.log(typeof orderTeddies.contact.city)
+    console.log(typeof orderTeddies.contact.email)
+    let products = orderTeddies.products
+    for (let i = 0; i < keys.length; i++) {
+        const key = keys[i]
+        const product = cart[key]
+        const productsOrder = product._id
+        console.log(typeof productsOrder)
+        products.push(productsOrder)
+    }
+    postOrder(orderTeddies)
         .then((resp) => {
             // Redirection vers la page de recap avec en paramètre le numéro de commande, le total, nom et prénom du contact
             console.log('Victoire')
