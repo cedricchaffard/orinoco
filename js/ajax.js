@@ -40,6 +40,7 @@ function postOrder(orderTeddies) {
             }
         }
         teddies.open("POST", "https://oc-p5-api.herokuapp.com/api/teddies/order");
+        teddies.setRequestHeader('Content-Type', 'application/json');
         teddies.send(JSON.stringify(orderTeddies));
 
     })

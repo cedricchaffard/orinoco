@@ -6,15 +6,6 @@ let keys = Object.keys(cart);
 
 let quantity = 1;
 
-for (let i = 0; i < keys.length; i++) {
-    const key = keys[i]
-    const product = cart[key]
-    const productsOrder = product._id
-    // products.push(productsOrder)
-    console.log(productsOrder)
-}
-
-
 //Fonction de supression d'un produit
 function removeItem(key) {
     if (confirm('Etes-vous sûr de vouloir supprimer le produit?')) {
@@ -132,13 +123,6 @@ if (keys.length === 0) {
 const form = document.querySelector('form');
 form.addEventListener('submit', (e) => {
     e.preventDefault()
-    console.log('firstName', e.target.firstName.value)
-    console.log('lastName', e.target.lastName.value)
-    console.log('address', e.target.address.value)
-    console.log('postalcode', e.target.postalcode.value)
-    console.log('city', e.target.city.value)
-    console.log('email', e.target.email.value)
-    console.log('message', e.target.message.value)
     const total = getTotalCart()
     const orderTeddies = {
         products : [],
@@ -150,23 +134,18 @@ form.addEventListener('submit', (e) => {
             email: e.target.email.value,
         }
     }
-    console.log(typeof orderTeddies.contact.firstName)
-    console.log(typeof orderTeddies.contact.lastName)
-    console.log(typeof orderTeddies.contact.address)
-    console.log(typeof orderTeddies.contact.city)
-    console.log(typeof orderTeddies.contact.email)
+
     let products = orderTeddies.products
     for (let i = 0; i < keys.length; i++) {
         const key = keys[i]
         const product = cart[key]
         const productsOrder = product._id
-        console.log(typeof productsOrder)
         products.push(productsOrder)
     }
     postOrder(orderTeddies)
         .then((resp) => {
-            // Redirection vers la page de recap avec en paramètre le numéro de commande, le total, nom et prénom du contact
-            console.log('Victoire')
+            localStorage.removeItem('cart');
+            window.location.href = `order.html?orderId=${resp.orderId}&firstName=${resp.contact.firstName}&lastName=${resp.contact.lastName}&total=${total}`
         })
 });
 

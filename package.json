@@ -1,0 +1,26 @@
+{
+  "name": "orinoco",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cedricchaffard/orinoco.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cedricchaffard/orinoco/issues"
+  },
+  "homepage": "https://github.com/cedricchaffard/orinoco#readme",
+  "devDependencies": {
+    "jasmine": "^3.6.1"
+  }
+}
