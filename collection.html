@@ -1,79 +1,81 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta char  et="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <title>Les oursons mignons</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
-        <link rel="shortcut icon" type="image/jpg" href="favicon.jpg">
-    </head>
-    <body> 
-        <!-- onmousemove="souris(event);" -->
-        <header href="#top">
-            <div class="center">
-                <div class="cloud2"></div>
-            </div>
-            <div class="center2">
-                <div class="cloud2"></div>
-            </div>
-            <img src="./img/teddy-bear.svg" alt="">
-            <h1>OrinoToy</h1>
-            <h2>Oursons de collection</h2>
-            <nav>
-                <div class="cercle">
-                    <div class="burger">
-                        <span></span>
-                    </div>
-                </div>
-                <ul class=menug>
-                    <li>
-                        <a href="index.html">Accueil</a>
-                    </li>
-                    <li id="collection" onClick="asideswipe()">
-                        <a href="#">Collection
-                            <ul id="collection-name"></ul>
-                        </a>
-                    </li>
-                    <li>
-                        <a id="my-cart" href="checkout.html"><i id="cart" class="fas fa-shopping-cart"></i> Mon panier</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <div id="down" class="textVisible">
-                <!-- <h2 id="welcomeText">Bienvenue sur le site de OrinoToy, le paradis des oursons mignons.<br><br>Découvre notre collection :</h2> -->
-            </div>
-            
-        </main>
-        <div>
-            <a id="scrolltotop" class="scrolltotopInvisible" href="#top"></a>
+
+<head>
+    <meta char et="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <title>Les oursons mignons</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/jpg" href="favicon.jpg">
+</head>
+
+<body>
+    <header href="#top">
+        <div class="center">
+            <div class="cloud2"></div>
         </div>
-        <footer>
-            <ul id="terms-of-use">
+        <div class="center2">
+            <div class="cloud2"></div>
+        </div>
+        <img src="./img/teddy-bear.svg" alt="">
+        <a href="index.html">
+            <h1>OrinoToy</h1>
+        </a>
+        <h2>Oursons de collection</h2>
+        <nav>
+            <div class="cercle">
+                <div class="burger">
+                    <span></span>
+                </div>
+            </div>
+            <ul class=menug>
                 <li>
-                    <a href="#">Conditions d'utilisation</a>
+                    <a href="index.html">Accueil</a>
+                </li>
+                <li id="collection" onClick="asideswipe()">
+                    <a href="#">Collection
+                        <ul id="collection-name"></ul>
+                    </a>
                 </li>
                 <li>
-                    <a href="#">Confidentialité</a>
-                </li>
-                <li>
-                    <a href="#">Cookies</a>
-                </li>
-                <li>
-                    <a href="#">Plan du site</a>
+                    <a id="my-cart" href="checkout.html"><i id="cart" class="fas fa-shopping-cart"></i> Mon panier</a>
                 </li>
             </ul>
-            <div id="info">
-                <input type="text" id="coordonnes" value="inconnues" readonly="readonly"/>
-            </div>
-        </footer>
-        <script src="js/ajax.js"></script>
-        <script src="js/collection.js"></script>
-        <script src="js/script.js"></script>
-        <!-- <script src="js/souris.js"></script> -->
-    </body>
-</html>
+        </nav>
+    </header>
+    <main>
+        <div id="down" class="textVisible">
+            <!-- <h2 id="welcomeText">Bienvenue sur le site de OrinoToy, le paradis des oursons mignons.<br><br>Découvre notre collection :</h2> -->
+        </div>
 
+    </main>
+    <div>
+        <a id="scrolltotop" class="scrolltotopInvisible" href="#top"></a>
+    </div>
+    <footer>
+        <ul id="terms-of-use">
+            <li>
+                <a href="#">Conditions d'utilisation</a>
+            </li>
+            <li>
+                <a href="#">Confidentialité</a>
+            </li>
+            <li>
+                <a href="#">Cookies</a>
+            </li>
+            <li>
+                <a href="#">Plan du site</a>
+            </li>
+        </ul>
+        <div id="info">
+            <input type="text" id="coordonnes" value="inconnues" readonly="readonly" />
+        </div>
+    </footer>
+    <script src="js/ajax.js"></script>
+    <script src="js/collection.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

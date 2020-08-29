@@ -1,5 +1,6 @@
+// TEDDIES MENU
 var teddies = getTeddies();
-teddies.then(function (response) {
+teddies.then(function(response) {
     const collectionName = document.querySelector('#collection-name')
     for (let product of response) {
         collectionName.innerHTML +=
@@ -11,8 +12,9 @@ teddies.then(function (response) {
     var url = new URL(window.location.href);
     var params = new URLSearchParams(url.search);
 
+    // PRODUCT PAGE LAYOUT
     getTeddy(params.get("id"))
-        .then(function (response) {
+        .then(function(response) {
             const main = document.querySelector("main")
             let goodPrice = Math.round(response.price) / 100;
             let formatPrice = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(goodPrice)
@@ -38,6 +40,7 @@ teddies.then(function (response) {
                 </div>
             </div>`
 
+            // COLOR CHOICE SELECTOR
             const colorChoice = (response.colors);
             const select = document.querySelector('#color-select');
             for (let i = 0; i < colorChoice.length; i++) {
@@ -47,7 +50,7 @@ teddies.then(function (response) {
                 select.appendChild(option);
             }
 
-
+            // ADD TO CART BUTTON
             const addCart = document.querySelector('.add');
 
             addCart.addEventListener('click', (e) => {
@@ -59,7 +62,7 @@ teddies.then(function (response) {
                 const cart = JSON.parse(localStorage.getItem('cart')) || {}
                 const key = `${product.selectedTeddy}-${product.teddyColor}`
                 let quantity = 1
-                if(cart[key]){
+                if (cart[key]) {
                     quantity = cart[key]['quantity'] + 1
                 }
 
@@ -68,8 +71,6 @@ teddies.then(function (response) {
                     quantity,
                     color: select.value
                 }
-                
-                console.log(cart);
 
                 localStorage.setItem('cart', JSON.stringify(cart));
 

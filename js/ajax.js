@@ -1,7 +1,8 @@
+// GLOBAL INFORMATION PROMISE
 function getTeddies() {
-    return new Promise(function (resolve) {
+    return new Promise(function(resolve) {
         var teddies = new XMLHttpRequest();
-        teddies.onreadystatechange = function () {
+        teddies.onreadystatechange = function() {
             if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
                 var response = JSON.parse(this.responseText);
                 resolve(response)
@@ -15,9 +16,9 @@ function getTeddies() {
 }
 
 function getTeddy(id) {
-    return new Promise(function (resolve) {
+    return new Promise(function(resolve) {
         var teddies = new XMLHttpRequest();
-        teddies.onreadystatechange = function () {
+        teddies.onreadystatechange = function() {
             if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
                 var response = JSON.parse(this.responseText);
                 resolve(response)
@@ -30,10 +31,11 @@ function getTeddy(id) {
 
 }
 
+// ORDER POST METHOD PROMISE
 function postOrder(orderTeddies) {
-    return new Promise(function (resolve) {
+    return new Promise(function(resolve) {
         var teddies = new XMLHttpRequest();
-        teddies.onreadystatechange = function () {
+        teddies.onreadystatechange = function() {
             if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
                 var response = JSON.parse(this.responseText);
                 resolve(response)
@@ -45,4 +47,3 @@ function postOrder(orderTeddies) {
 
     })
 }
-

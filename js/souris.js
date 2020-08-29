@@ -1,3 +1,4 @@
+// MOUSE POSITION FOR LITTLE CLOUD LAYOUT
 function souris(event) {
     var x = event.clientX;
     var y = event.clientY;
