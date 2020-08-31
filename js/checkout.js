@@ -123,7 +123,7 @@ teddies.then(function(response) {
         }
 
         tbody.innerHTML += `<tr>
-        <td colspan="6">Total</td>
+        <td id="total-line" colspan="6">Total</td>
         <td id="total">${getTotalCart()}</td>
     </tr>`
 
