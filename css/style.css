@@ -863,7 +863,9 @@ button {
         display: flex;
     }
     .parrallax {
-        background-size: inherit;
+        max-height: inherit;
+        background-attachment: initial;
+        max-width: 100%;
     }
     .cloud-mouse {
         display: none;
