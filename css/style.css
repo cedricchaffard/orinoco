@@ -863,7 +863,7 @@ button {
         display: flex;
     }
     .parrallax {
-        max-width: auto;
+        background-image: inherit;
     }
     .cloud-mouse {
         display: none;
@@ -912,7 +912,7 @@ button {
         font-size: 1em;
     }
     .parrallax {
-        max-width: auto;
+        background-image: inherit;
     }
 }
 
