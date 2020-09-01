@@ -92,7 +92,7 @@ teddies.then(function(response) {
         <td id="checkout-product-image" style="background-image:url(${imageUrl});background-size:16vh;background-repeat:no-repeat;background-position:center;"></td>
         <td>${name}</td>
         <td>${choosenColor}</td>
-        <td>
+        <td id="quantity-layout">
         <button class="orderQuantityMinus">-</button>
         <span class="orderQuantity">${quantity}</span>
         <button class="orderQuantityPlus">+</button>
