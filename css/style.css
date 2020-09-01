@@ -863,7 +863,7 @@ button {
         display: flex;
     }
     .parrallax {
-        background-attachment: scroll;
+        background-size: inherit;
     }
     .cloud-mouse {
         display: none;
