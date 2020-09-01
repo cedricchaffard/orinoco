@@ -863,7 +863,7 @@ button {
         display: flex;
     }
     .parrallax {
-        width: auto;
+        max-width: auto;
     }
     .cloud-mouse {
         display: none;
@@ -912,7 +912,7 @@ button {
         font-size: 1em;
     }
     .parrallax {
-        max-width: 90%;
+        max-width: auto;
     }
 }
 
@@ -947,9 +947,6 @@ button {
     .menug>li:nth-child(3) {
         right: 2vh;
     }
-    /* .menug li:nth-child(3) a{
-        color: transparent;
-    } */
     .menug li:nth-child(3) i {
         color: #ffffff;
         font-size: 1.5em;
