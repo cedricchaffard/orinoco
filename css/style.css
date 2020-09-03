@@ -913,11 +913,11 @@ button {
     #terms-of-use li {
         font-size: 1em;
     }
-    .parrallax {
+    /* .parrallax {
         max-height: inherit;
         background-attachment: initial;
         max-width: 100%;
-    }
+    } */
 }
 
 
@@ -959,11 +959,11 @@ button {
     #welcomeText {
         margin-top: 2vh;
     }
-    .parrallax {
+    /* .parrallax {
         max-height: inherit;
         background-attachment: initial;
         max-width: 100%;
-    }
+    } */
 }
 
 
